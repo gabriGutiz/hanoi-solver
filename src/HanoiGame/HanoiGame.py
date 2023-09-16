@@ -11,11 +11,7 @@ class HanoiGame:
     stack_c = deque()
 
     mode: int
-    game = {
-        StackA: stack_a,
-        StackB: stack_b,
-        StackC: stack_c
-    }
+    game: dict
     movements: list[Movement]
 
     def __init__(self, mode: int=3):
@@ -29,22 +25,34 @@ class HanoiGame:
 
         for i in range(0, mode):
             self.stack_a.append(mode-i)
+        self.game = {
+            StackA: self.stack_a,
+            StackB: self.stack_b,
+            StackC: self.stack_c
+        }
 
     def make_movement(self, movement: Movement) -> None:
-        if not self.movement_is_valid:
+        if not self.movement_is_valid(movement):
             raise InvalidMovementException(movement)
 
         self.game[movement.destiny_stack].append(self.game[movement.origin_stack].pop())
         self.movements.append(movement)
 
     def movement_is_valid(self, movement: Movement) -> bool:
-        if self.game[movement.origin_stack].count == 0:
+        if len(self.game[movement.origin_stack]) == 0:
             return False
-        if self.game[movement.origin_stack][-1] > self.game[movement.destiny_stack][-1]:
+        if (len(self.game[movement.destiny_stack]) != 0
+            and self.game[movement.origin_stack][-1] > self.game[movement.destiny_stack][-1]):
             return False
         return True
 
     def is_solved(self) -> bool:
+        return len(self.stack_a) == 0 and len(self.stack_b) == 0 or len(self.stack_c) == self.mode
+
+    def movements_quantity(self):
+        return len(self.movements)
+
+    def possible_movements(self):
         pass
 
     def __str__(self) -> str:
@@ -62,6 +70,6 @@ class HanoiGame:
         response += ' ---------\n  A  B  C\n\nMovements: '
         for movement in self.movements:
             response += str(movement)
-            response += ';'
+            response += ' ; '
 
         return response+'\n-----------------------'
