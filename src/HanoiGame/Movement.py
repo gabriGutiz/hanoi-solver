@@ -1,4 +1,4 @@
-from .constants import AllowedStacks
+from src.constants import AllowedStacks
 
 class Movement:
     origin_stack: AllowedStacks

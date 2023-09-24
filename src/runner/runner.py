@@ -1,5 +1,7 @@
 from src.HanoiGame import *
+from src.Solver import *
 from os import system
+import time
 
 class Runner:
     mode: int
@@ -7,10 +9,11 @@ class Runner:
     def __init__(self):
         self.run()
 
+
     def run(self):
         self.get_mode()
         run = self.get_process()
-        run()
+
 
     def get_mode(self) -> None:
         while True:
@@ -22,18 +25,26 @@ class Runner:
             self.mode = int(size)
             break
 
+
     def get_process(self) -> callable:
         self._clear_terminal()
         process = input('Select the execution type\n\t( 1 ) User game\n\t( 2 ) Algorithm solution\nChoose you option: ')
         if process == '1':
-            return self.run_user_game
+            return self.run_user_game()
         elif process == '2':
-            return self.run_algorithm
+            return self.run_algorithm()
         exit()
 
+
     def run_algorithm(self) -> None:
-        print('Running algorithm')
-        pass
+        print('\nRunning algorithm...')
+        solver = Solver(''.join('1' for _ in range(self.mode)))
+
+        start_time = time.time()
+        solution = solver.solve()
+        print(f'\nSolution: {solution}')
+        print(f'Solved in {time.time() - start_time:.2f} s')
+
 
     def run_user_game(self) -> None:
         try:
@@ -61,6 +72,8 @@ class Runner:
 
         print(f'Game solved with {game.movements_quantity()} movements!')
 
+
     @staticmethod
     def _clear_terminal() -> None:
         system('cls || clear')
+

@@ -1,5 +1,5 @@
 from typing import Any
-from .Movement import Movement
+from src.HanoiGame import Movement
 
 class InvalidMovementException(Exception):
     def __init__(self, moviment: Movement):

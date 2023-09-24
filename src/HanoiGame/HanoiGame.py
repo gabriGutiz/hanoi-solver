@@ -1,8 +1,7 @@
 import logging as LOG
 from collections import deque
 
-from .Exceptions import InvalidModeException, InvalidMovementException
-from .constants import StackA, StackB, StackC
+from src.constants import *
 from .Movement import Movement
 
 class HanoiGame:
