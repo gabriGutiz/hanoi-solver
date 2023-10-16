@@ -28,11 +28,14 @@ class Runner:
 
     def get_process(self) -> callable:
         self._clear_terminal()
-        process = input('Select the execution type\n\t( 1 ) User game\n\t( 2 ) Algorithm solution\nChoose you option: ')
-        if process == '1':
-            return self.run_user_game()
-        elif process == '2':
-            return self.run_algorithm()
+        process = input('Select the execution type\n\t( 1 ) User game\n\t( 2 ) Algorithm solution\n\t( 3 ) Optimized algorithm solution\nChoose you option: ')
+        match process:
+            case '1':
+                return self.run_user_game()
+            case '2':
+                return self.run_algorithm()
+            case '3':
+                return self.run_optimized_algorithm()
         exit()
 
 
@@ -42,6 +45,16 @@ class Runner:
 
         start_time = time.time()
         solution = solver.solve()
+        print(f'\nSolution: {solution}')
+        print(f'Solved in {time.time() - start_time:.2f} s')
+
+
+    def run_optimized_algorithm(self) -> None:
+        print('\nRunning optimized algorithm...')
+        solver = Solver(''.join('1' for _ in range(self.mode)))
+
+        start_time = time.time()
+        solution = solver.solve_optimized()
         print(f'\nSolution: {solution}')
         print(f'Solved in {time.time() - start_time:.2f} s')
 
