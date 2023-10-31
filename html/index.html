@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Torres de Hanoi</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <div id="menu">
+      <h1>Torres de Hanoi</h1>
+      <form id="start">
+        <label for="disks">Discos: </label>
+        <input type="number" min="3" max="32" id="disks" required />
+        <input type="submit" value="Resolver" />
+      </form>
+    </div>
+
+    <canvas
+      id="canvas"
+      style="border: 5px solid; width: 800px; height: 600px"
+    ></canvas>
+    <button id="tryAgain" onClick="window.location.reload();" >Tentar novamente</button>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
